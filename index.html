@@ -2,21 +2,35 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>نظام شركة مزايا نجد</title>
-<script>const LINK = "https://script.google.com/macros/s/AKfycbzBm3MBzE95Gn9r9zlPsu5pEVScGT4zKefg0QfOjW5LxbyeqZCUQBqyMvzS1SDbxUiHnA/exec";</script>
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>مزايا نجد</title>
+<script>const LINK = "https://script.google.com/macros/s/AKfycbwLTUwj0VdISdMgkoteLdrC76igkM2APpaVPpdTOwVWJEFnsAGVo0k5XGrLjNpGg8mfmg/exec";</script>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#6e263a">
+<link rel="icon" href="favicon.png">
+<link rel="apple-touch-icon" href="icon-180.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="مزايا نجد">
 <style>
-body{margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;background:#0b120e;color:#e8efe9;font-family:Tahoma,Arial,sans-serif;text-align:center}
-a{display:inline-block;margin-top:14px;padding:12px 26px;border-radius:12px;background:#e0b25a;color:#1b1b1b;text-decoration:none;font-weight:700}
-h1{color:#e0b25a;font-size:22px;margin:0 0 6px}
+html,body{margin:0;height:100%;background:#6e263a;overflow:hidden}
+#f{position:fixed;inset:0;width:100%;height:100%;border:0;background:#faf6f0}
+#sp{position:fixed;inset:0;z-index:2;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;background:radial-gradient(260px 220px at 50% 38%,rgba(255,241,226,.9),transparent 70%),linear-gradient(160deg,#6e263a,#2a1012);color:#fff1e2;font:600 16px Tahoma,Arial,sans-serif;transition:opacity .5s}
+#sp img{width:150px;animation:s 2.4s ease-in-out infinite}
+@keyframes s{50%{transform:translateY(-8px) scale(1.04)}}
+#sp a{display:none;margin-top:6px;padding:12px 22px;border-radius:12px;background:#fff1e2;color:#6e263a;text-decoration:none}
 </style>
 </head>
 <body>
-<div>
-<h1>نظام شركة مزايا نجد</h1>
-<p>جارٍ فتح النظام…</p>
-<a id="go" href="#">اضغط هنا إن لم يفتح تلقائيًا</a>
-</div>
-<script>document.getElementById("go").href = LINK; location.replace(LINK);</script>
+<div id="sp"><img src="icon-512.png" alt=""><span>جارٍ فتح نظام مزايا نجد…</span><a id="go" href="#">فتح النظام مباشرة</a></div>
+<iframe id="f" title="نظام مزايا نجد" allow="geolocation *; camera *; microphone *; clipboard-write *; fullscreen *"></iframe>
+<script>
+const f=document.getElementById('f'),sp=document.getElementById('sp'),go=document.getElementById('go');
+go.href=LINK;f.src=LINK;
+f.onload=()=>{sp.style.opacity=0;setTimeout(()=>sp.remove(),600)};
+setTimeout(()=>{if(document.getElementById('sp'))go.style.display='inline-block'},12000);
+if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js').catch(()=>{});
+</script>
 </body>
 </html>
