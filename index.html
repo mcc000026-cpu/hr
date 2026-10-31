@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>مزايا نجد</title>
+<script>const LINK = "https://script.google.com/macros/s/AKfycbwmYwUpa2s-IMRX8WvHDS205oHllIZJsShl4uEoQytD8Zd3PlwbC2zXFI6ouQFjl2csjg/exec";</script>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#6e263a">
+<link rel="icon" href="favicon.png">
+<link rel="apple-touch-icon" href="icon-180.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="مزايا نجد">
+<style>
+html,body{margin:0;height:100%;background:#6e263a;overflow:hidden}
+#f{position:fixed;inset:0;width:100%;height:100%;border:0;background:#faf6f0}
+#sp{position:fixed;inset:0;z-index:2;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;background:radial-gradient(260px 220px at 50% 38%,rgba(255,241,226,.9),transparent 70%),linear-gradient(160deg,#6e263a,#2a1012);color:#fff1e2;font:600 16px Tahoma,Arial,sans-serif;transition:opacity .5s}
+#sp img{width:150px;animation:s 2.4s ease-in-out infinite}
+@keyframes s{50%{transform:translateY(-8px) scale(1.04)}}
+#sp a{display:none;margin-top:6px;padding:12px 22px;border-radius:12px;background:#fff1e2;color:#6e263a;text-decoration:none}
+</style>
+</head>
+<body>
+<div id="sp"><img src="icon-512.png" alt=""><span>جارٍ فتح نظام مزايا نجد…</span><a id="go" href="#">فتح النظام مباشرة</a></div>
+<iframe id="f" title="نظام مزايا نجد" allow="geolocation *; camera *; microphone *; clipboard-write *; fullscreen *"></iframe>
+<script>
+const f=document.getElementById('f'),sp=document.getElementById('sp'),go=document.getElementById('go');
+go.href=LINK;f.src=LINK;
+f.onload=()=>{sp.style.opacity=0;setTimeout(()=>sp.remove(),600)};
+setTimeout(()=>{if(document.getElementById('sp'))go.style.display='inline-block'},12000);
+window.addEventListener('message',e=>{if(!/^https:\/\/([a-z0-9-]+\.)*(google\.com|googleusercontent\.com)$/.test(e.origin))return;const d=e.data||{},src=e.source;if(!src)return;
+if(d.t==='mzgeo-ping'){src.postMessage({t:'mzgeo-pong'},'*');return}
+if(d.t!=='mzgeo-req')return;const id=d.id,W=d.wait||20000;if(!navigator.geolocation){src.postMessage({t:'mzgeo-res',id,err:'unavailable'},'*');return}
+let best=null,done=0,w=null,tm=null;const fin=err=>{if(done)return;done=1;if(w!=null)navigator.geolocation.clearWatch(w);clearTimeout(tm);src.postMessage(best?{t:'mzgeo-res',id,pos:best}:{t:'mzgeo-res',id,err:err||'timeout'},'*')};
+tm=setTimeout(()=>fin(),W);
+w=navigator.geolocation.watchPosition(p=>{const r={lat:p.coords.latitude,lng:p.coords.longitude,acc:Math.round(p.coords.accuracy)};if(!best||r.acc<=best.acc)best=r;src.postMessage({t:'mzgeo-upd',id,pos:best},'*');if(best.acc<=(d.good||15))fin()},er=>{if(er.code==3&&best)return fin();fin(er.code==1?'denied':er.code==2?'unavailable':'timeout')},{enableHighAccuracy:true,maximumAge:0,timeout:W})});
+if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js').catch(()=>{});
+</script>
+</body>
+</html>
